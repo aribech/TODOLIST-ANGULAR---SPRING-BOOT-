@@ -1,0 +1,30 @@
+<form [formGroup]="itemForm" (submit)="addItem()">
+  <input type="text" class="form-control" formControlName="label" placeholder="Ajouter une tache" [(ngModel)]="newItemLabel" >
+  <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" />
+</form>
+<hr>
+<select class="form-select" aria-label="Default select example" (change)="onFilterChange($event)">
+  <option selected>All</option>
+  <option value="1">Active</option>
+  <option value="2">Done</option>
+</select>
+<hr>
+<div *ngFor="let item of items ; let i = index ">
+  <div class="row">
+      <div class="col-2">
+        <input type="checkbox" [checked]="item.done" class="form-check-input" (change)="changeItemDone($event)" [value]="i">
+      </div>
+      <div class="col-6">
+        <input type="text"  class="form-control" value="{{item.label}}">
+      </div>
+      <div class="col-2">
+        <i *ngIf="item.done" class="fa fa-check"></i>
+      </div>
+      <div class="col-2">
+        <button type="button"  (click)="updateItem(item)"><i class="fa fa-pen"></i></button>
+        <button type="button" class="btn-close" (click)="deleteItem(item)"></button>
+      </div>
+
+  </div>
+  <hr>
+</div>
